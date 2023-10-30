@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+<!-- ========================= SECTION MAIN ========================= -->
+
+{% load static %}
+<!-- ========================= SECTION MAIN ========================= -->
+
+{% block content %}
+
+
+<style>
+body{
+  background-image: url(static/images/background/23.jpg);
+  height: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 16px 13px 40px #0a0000;
+}
+
+		/* Hide Radio button */
+.rate > input{
+  display: none;
+}
+
+.rate{
+  display: inline-block;;
+  border: 0;
+}
+
+.rate > label{
+  float: right;
+}
+
+/* Showing the stars */
+.rate > label:before{
+  display: inline-block;
+  font-size: 1.1rem;
+  font-family: FontAwesome;
+  content: "\f005";
+  margin:0;
+  padding:0.3rem .2rem;
+  cursor: pointer;
+}
+
+/* Half star */
+.rate .half:before{
+  content: "\f089";
+  position: absolute;
+  padding-right: 0;
+}
+
+/* Click and hover */
+input:checked ~ label, label:hover ~ label{
+  color: #ffb503;
+}
+
+/* hover hightlight */
+input:checked + label:hover, input:checked ~ label:hover,input:checked ~ label:hover ~ label,
+label:hover ~ input:checked ~ label{
+  color: #cc9000;
+}
+
+.rating-star i{
+  color: #ffb503 !important;
+}
+
+ul.thumb{
+  margin:0 auto;
+  padding: 0;
+  float: left;
+}
+ul.thumb li{
+  list-style: none;
+  margin: 10px;
+}
+ul.thumb li img{
+  width: 80px;
+  height: 80px;
+  border: 1px solid grey;
+}
+.store {
+ background-color: rgba(47, 54, 54, 0.57);
+  margin: 20px 20px;
+  border-radius: 30px;
+  padding: 10px;
+  height: auto;
+  box-shadow: 16px 13px 40px #0a0000;
+
+  }
+
+    </style>
+<html>
+<body class="body">
+
+<div id="carouselExampleControls" class="carousel slide store" data-ride="carousel">
+    <div class="carousel-inner">
+        {% for product in products %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <a href="{{ product.get_url }}">
+                    <div class="card">
+                        <div class="card card-cover overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('{{ product.images.url }}'); border-radius: 30px; background-size: cover;  background-position: center center; height: 250px;">
+                            <div class="card-body d-flex flex-column justify-content-end">
+                                <h4 class="card-title text-center">{{product.product_name}}</h4>
+                                <h4 class="card-title text-center">${{product.price}}</h4>
+                                  <div class="rating-star">
+                                     <span>
+                                        <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+
+    <!-- ========================= SECTION  ========================= -->
+    <section class="section-name padding-y-sm">
+      <div class="container">
+        <header class="section-heading store">
+          <a href="{% url 'store' %}" class="btn btn-outline-primary float-right">See all</a>
+          <h4 class="section-title">Popular products</h4>
+        </header>
+        <!-- sect-heading -->
+
+        <div class="row">
+          {% for product in products %}
+          <div class="col-md-3">
+            <div class="card card-product-grid store">
+              <a href="{{ product.get_url }}" class="img-wrap">
+                <img src="{{ product.images.url }}" style="border-radius: 30px;">
+              </a>
+              <figcaption class="info-wrap">
+                <a href="{{ product.get_url }}" class="title"
+                  >{{product.product_name}}</a
+                >
+                <div class="price mt-1">${{product.price}}</div>
+                <!-- price-wrap.// -->
+                <div class="rating-star">
+					<span>
+						<i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+						<i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+						<i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+						<i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+						<i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+						</span>
+				</div>
+              </figcaption>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+        <!-- row.// -->
+      </div>
+      <!-- container // -->
+    </section>
+    <!-- ========================= SECTION  END// ========================= -->
+
+    <!-- ========================= FOOTER ========================= -->
+
+    <!-- ========================= FOOTER END // ========================= -->
+  </body>
+</html>
+{% endblock %}

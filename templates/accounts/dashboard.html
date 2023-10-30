@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+<!-- ========================= SECTION MAIN ========================= -->
+
+{% load static %}
+<!-- ========================= SECTION MAIN ========================= -->
+
+{% block content %}
+<style>
+#dashboard {
+ background-color: rgba(47, 54, 54, 0.57);
+  margin: 20px 20px;
+  border-radius: 30px;
+  padding: 25px;
+  height: 550px;
+  box-shadow: 16px 13px 40px #0a0000;
+
+  }
+  .dashboard {
+ background-color: rgba(47, 54, 54, 0.57);
+  margin: 10px 10px;
+  border-radius: 20px;
+  padding: 15px;
+  height: auto;
+  box-shadow: 16px 13px 40px #0a0000;
+
+  }
+  .texts {
+  background-color: #E0E0E0;
+  margin: 10px 10px;
+  border-radius: 20px;
+  padding: 15px;
+  height: auto;
+  box-shadow: 16px 13px 40px #0a0000;
+  }
+</style>
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg"  id="dashboard">
+
+<div class="container">
+	<div class="row">
+	{% include 'includes/dashboard_sidebar.html' %}
+	<main class="col-md-9">
+		<article class="card dashboard" >
+		<header class="card-header">
+			<strong class="d-inline-block mr-3">Logged in as</strong>
+			<span>{{user.full_name}}</span>
+		</header>
+		<div class="card-body" >
+			<div class="row">
+				<div class="col-md-6">
+					<div class="card " style="text-align:center; font-color: white;">
+						<div class="card-body texts">
+							<h5 class="card-title">Total Orders</h5>
+							<h4>{{orders_count}}</h4>
+
+							<a href="{% url 'my_orders' %}">View Orders</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="card " style="text-align:center; font-color: white;">
+						<div class="card-body texts " >
+
+							<img src="{{userprofile.profile_picture.url}}" alt="User Profile Picture" width="50" height="50" style="border-radius:50%;">
+
+							<p class="mb-0">{{user.email}}</p>
+							<p>{{user.phone_number}}</p>
+						</div>
+					</div>
+				</div>
+
+			</div> <!-- row.// -->
+		</div> <!-- card-body .// -->
+		</article> <!-- order-group.// -->
+	</main>
+</div> <!-- row.// -->
+</div>
+
+
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+{% endblock %}

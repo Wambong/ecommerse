@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+<!-- ========================= SECTION MAIN ========================= -->
+
+{% load static %}
+<!-- ========================= SECTION MAIN ========================= -->
+
+{% block content %}
+<style>
+  ##orderss {
+	  background: linear-gradient(250deg, #5D6D7E, #5D6D7E);
+	  height: 600px;
+	  background-position: center;
+	  background-repeat: no-repeat;
+	  background-size: cover;
+
+  }
+  #table{
+	  background: linear-gradient(250deg, #dc354585, #0524ff61);
+	  height: auto;
+	  background-position: center;
+	  background-repeat: no-repeat;
+	  background-size: cover;
+	  border-radius: 15px;
+  }
+  #orderss {
+  background-color: rgba(47, 54, 54, 0.57);
+  margin: 20px 20px;
+  border-radius: 30px;
+  padding: 25px;
+  height: auto;
+  box-shadow: 16px 13px 40px #0a0000;
+
+}
+
+</style>
+
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg" id="orderss">
+
+<div class="container">
+	<div class="row">
+	{% include 'includes/dashboard_sidebar.html' %}
+	<main class="col-md-9">
+		<article class="card">
+		<header class="card-header">
+			<strong class="d-inline-block mr-3">Your Order History</strong>
+
+		</header>
+		<div class="card-body table">
+			<div class="row">
+				<div class="col-md-12" id="table">
+					<table class="table table-hover">
+					  <thead>
+						<tr>
+						  <th scope="col">Order #</th>
+						  <th scope="col">Billing Name</th>
+						  <th scope="col">Phone</th>
+						  <th scope="col">Order Total</th>
+							 <th scope="col">Date</th>
+						</tr>
+					  </thead>
+					  <tbody>
+						{% for order in orders %}
+				    <tr>
+
+				      <th scope="row"><a href="{% url 'order_detail' order.order_number %}">{{order.order_number}}</a></th>
+
+				      <td>{{order.full_name}}</td>
+				      <td>{{order.phone}}</td>
+				      <td>${{order.order_total}}</td>
+							<td>{{order.created_at}}</td>
+				    </tr>
+						{% endfor %}
+
+					  </tbody>
+					</table>
+
+				</div>
+			</div> <!-- row.// -->
+		</div> <!-- card-body .// -->
+		</article> <!-- order-group.// -->
+	</main>
+</div> <!-- row.// -->
+</div>
+
+
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+<!-- ========================= FOOTER ========================= -->
+<footer class="section-footer border-top padding-y">
+	<div class="container">
+		<p class="float-md-right">
+			&copy Copyright 2019 All rights reserved
+		</p>
+		<p>
+			<a href="#">Terms and conditions</a>
+		</p>
+	</div><!-- //container -->
+</footer>
+<!-- ========================= FOOTER END // ========================= -->
+
+
+
+</body>
+</html>
+{% endblock %}
